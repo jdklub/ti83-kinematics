@@ -1,0 +1,156 @@
+RectGC
+GridOff
+AxesOff
+ClrList L1,L2,L3,L4
+PlotsOff 
+FnOff 
+ClrDraw
+Fix 2
+Degree
+0->L1(1)
+0->L2(1)
+0->L3(1)
+0->L4(1)
+2->M
+ClrHome
+
+Disp "    FINDING"
+Disp "   COMPONENTS"
+Disp "  OF A  VECTOR"
+Disp ""
+Disp "       BY"
+Disp "DICK HECKATHORN"
+Output(8,1,"    C.V.C.A."
+Pause 
+Lbl S
+ClrHome
+Disp "E[n][t][|e][r]
+Disp "MAGNITUDE (R)"
+Disp "AND"
+Disp "DIRECTION (theta)"
+Disp ""
+Output(8,1,"PRESS ON TO STOP"
+Prompt R,theta
+P>Rx(R,theta)->L1(M)
+P>Ry(R,theta)->L2(M)
+If theta=0
+Goto 2
+If theta=90
+Goto 2
+If theta=270
+Goto 2
+If theta=~90
+Goto 2
+If theta=~180
+Goto 2
+If theta=~270
+Goto 2
+
+ClrDraw
+min(L1)->Xmin
+max(L1)->Xmax
+(Xmax-Xmin)/10->Xscl
+Xmax+Xscl->Xmax
+Xmin-Xscl->Xmin
+If Xscl=0
+Then
+	Xmin-1->Xmin
+	Xmax+1->Xmax
+End
+min(L2)->Ymin
+max(L2)->Ymax
+(Ymax-Ymin)/10->Yscl
+Ymax+Yscl->Ymax
+Ymin-Yscl->Ymin
+If Yscl=0
+Then
+	Ymin-1->Ymin
+	Ymax+1->Ymax
+End
+ZSquare
+1->Z
+1->D
+L1(M)->F
+L2(M)->G
+theta->U
+Lbl 5
+(F-(R/12)cos(U)->A
+(G-(R/12)sin(U)->B
+(A-(R/24)sin(U->X
+(B+(R/24)cos(U)->Y
+(A+(R/24)sin(U)->S
+(B-(R/24)cos(U)->T
+Line(X,Y,F,G)
+Line(F,G,S,T)
+If D>2
+Goto 6
+If D>1
+Goto 4
+Line(L3(1),L4(1),L1(M),L2(M)
+1->Z
+L1(M)/2->P
+L2(M)/2->V
+Lbl 9
+iPart(((P-Xmin)/(Xmax-Xmin)*94)->P
+(57-iPart(((V-Ymin)/(Ymax-Ymin)*57))->V
+If Z>2
+Goto 7
+If Z>1
+Goto 8
+Text(V,P,"R")
+Pause 
+D+1->D
+L1(M)->F
+0->G
+If theta>90
+180->U
+If theta>270
+0->U
+If theta<90
+0->U
+If theta<~90
+180->U
+If theta<~270
+0->U
+Goto 5
+Lbl 4
+Line(L3(1),L4(1),L1(M),L3(1)
+Z+1->Z
+L1(M)/2->P
+L3(1)->V
+Goto 9
+Lbl 8
+Text(V,P,"H")
+Pause 
+D+1->D
+0->F
+L2(M)->G
+If theta<180
+90->U
+If theta>180
+270->U
+If theta<0
+270->U
+If theta<~180
+90->U
+Goto 5
+Lbl 6
+Line(L3(1),L4(1),L4(1),L2(M)
+Z+1->Z
+L4(1)->P
+L2(M)/2->V
+Goto 9
+Lbl 7
+Text(V,P,"V")
+Pause 
+Lbl 2
+ClrHome
+Disp ""
+Disp "HORIZONTAL"
+Disp "COMPONENT"
+Disp cos(theta)R
+Disp "VERTICAL"
+Disp "COMPONENT"
+Disp sin(theta)R
+Pause 
+Goto S

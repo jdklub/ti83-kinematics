@@ -1,0 +1,212 @@
+ClrHome
+Goto M
+Disp ""
+Disp "ANGLES ARE"
+Disp "ENTERED"
+Disp "ACCORDING TO"
+Disp "THE FOLLOWING"
+Disp "CONVENTION."
+Pause 
+ClrHome
+Disp "COUNTER"
+Disp "CLOCKWISE"
+Disp "ANGLES FROM EAST"
+Disp "ARE POSITIVE."
+Disp ""
+Disp "CLOCKWISE"
+Disp "ANGLES FROM EAST"
+Output(8,1,"ARE NEGATIVE."
+Pause 
+ClrHome
+Disp "  FOR EXAMPLE"
+
+Disp "0^^o   EAST   REF."
+Disp ""
+Disp "90^^o  NORTH -270^^o
+"
+Disp ""
+Disp "180^^o WEST  -180^^o"
+Disp ""
+Output(8,1,"270^^o SOUTH  -90^^o
+Pause 
+ClrHome
+1->K
+Lbl M
+Float
+AxesOn
+ClrList L1,L2,L3,L4
+PlotsOff 
+FnOff 
+Float
+0->L1(1)
+0->L2(1)
+0->L3(1)
+0->L4(1)
+0->C
+0->Z
+2->M
+Degree
+ClrHome
+Menu("  **OPTIONS**","RESULTANT",A,"EQUILIBRANT",B,"QUIT",D)
+Lbl D
+ClrHome
+Stop
+Lbl A
+1->W
+Goto 0
+Lbl B
+~1->W
+Lbl 0
+ClrHome
+Disp "NUMBER OF"
+Input "VECTORS? ",N
+If K>1
+Goto 1
+ClrHome
+Disp "ENTER VECTORS TO"
+Disp "BE ADDED."
+Disp ""
+Disp "R=MAGNITUDE"
+Disp "theta=DIRECTION"
+Output(8,1,"        [ENTER]")
+Pause 
+ClrHome
+Lbl 1
+If M>N+1
+Goto 2
+ClrHome
+Disp "          VECTOR",M-1
+Prompt (R,theta)
+P>Rx(R,theta)->L1(M)
+P>Ry(R,theta)->L2(M)
+If L1(M)=0
+Then
+	L3(M-1)->L3(M)
+	Goto 8
+End
+1-Var Stats L1
+[Sigmax]->L3(M)
+Lbl 8
+If L2(M)=0
+Then
+	L4(M-1)->L4(M)
+	M+1->M
+	Goto 1
+End
+1-Var Stats L2
+[Sigmax]->L4(M)
+M+1->M
+Goto 1
+Lbl 2
+ClrDraw
+1->M
+If W=1
+Goto J
+~2*abs(L3(M+1))->Xmin
+2*abs(L3(M+1))->Xmax
+~2*abs(L4(M+1))->Ymin
+2*abs(L4(M+1))->Ymax
+If W=~1
+Goto K
+Lbl J
+min(L3)->Xmin
+max(L3)->Xmax
+min(L4)->Ymin
+max(L4)->Ymax
+Lbl K
+(Xmax-Xmin)/10->Xscl
+Xmax+Xscl->Xmax
+Xmin-Xscl->Xmin
+If Xscl=0
+Then
+	Xmin-1->Xmin
+	Xmax+1->Xmax
+End
+(Ymax-Ymin)/10->Yscl
+Ymax+Yscl->Ymax
+Ymin-Yscl->Ymin
+If Yscl=0
+Then
+	Ymin-1->Ymin
+	Ymax+1->Ymax
+End
+ZSquare
+Lbl 3
+M+1->Q
+Lbl G
+R>Pr(L1(Q),L2(Q))->R
+R>Ptheta(L1(Q),L2(Q))->theta
+Line(L3(M),L4(M),L3(Q),L4(Q))
+Lbl 5
+(L3(Q)-(R/12)cos(theta)->A
+(L4(Q)-(R/12)sin(theta)->B
+(A-(R/24)sin(theta)->X
+(B+(R/24)cos(theta)->Y
+(A+(R/24)sin(theta)->S
+(B-(R/24)cos(theta)->T
+Line(X,Y,L3(Q),L4(Q))
+Line(L3(Q),L4(Q),S,T)
+If Z=1
+Goto 6
+(L3(M)+L3(Q))/2->P
+(L4(M)+L4(Q))/2->V
+iPart(((P-Xmin)/(Xmax-Xmin)*94)->P
+(57-iPart(((V-Ymin)/(Ymax-Ymin)*57))->V
+Text(V,P,M)
+M+1->M
+If C=1
+Goto 6
+If M>=[n]
+Goto 4
+Goto 3
+Lbl 4
+Pause 
+R>Pr(L3(Q),L4(Q))->R
+R>Ptheta(L3(Q),L4(Q))->theta
+Line(L3(1),L4(1),L3(Q),L4(Q))
+1->Z
+Goto 5
+Lbl 6
+L3(Q)/2->P
+L4(Q)/2->V
+iPart(((P-Xmin)/(Xmax-Xmin)*94)->P
+(57-iPart(((V-Ymin)/(Ymax-Ymin)*57))->V
+If C=1
+Text(V,P,"E")
+If C=0
+Text(V,P,"R")
+Pause 
+If C=1
+Goto F
+If W=1
+Goto I
+1->C
+R>Pr(W*L3(Q),W*L4(Q))->R
+R>Ptheta(W*L3(Q),W*L4(Q))->theta
+Line(L3(M),L4(M),~L3(Q),~L4(Q))
+~L3(Q)->L3(Q)
+~L4(Q)->L4(Q)
+Goto 5
+Lbl I
+2->Z
+R>Pr(W*L3(Q),W*L4(Q))->R
+R>Ptheta(W*L3(Q),W*L4(Q))->theta
+Lbl F
+ClrHome
+Disp ""
+If W=1
+Disp "RESULTANT MAG"
+Fix 2
+If W=~1
+Disp "EQUILIBRANT MAG"
+Disp R
+If W=1
+Disp "RESULTANT DIR"
+If W=~1
+Disp "EQUILIBRANT DIR"
+Disp theta
+Output(8,1,"    [ENTER]"
+Pause 
+K+1->K
+Goto M
+Stop

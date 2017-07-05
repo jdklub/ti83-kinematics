@@ -1,0 +1,255 @@
+AxesOff
+ClrDraw
+FnOff 
+Float
+ClrHome
+ClrDraw
+Text(0,28,"KINEMATICS")
+Text(08,17,"BY: JUSTIN KLUBNIK")
+Text(20,5,"   A     =   ACCELERATION")
+Text(27,5,"   D     =   DISTANCE")
+Text(34,5,"   T     =   TIME")
+Text(41,5,"   VI =   INITIAL VELOCITY")
+Text(48,5,"   VF =   FINAL VELOCITY")
+Text(55,17,"**   HIT   ENTER   **")
+Lbl S
+getKey->K
+While K=0
+	getKey->K
+End
+Lbl M
+ClrDraw
+Text(0,0,"SELECT   KNOWN   VARIABLES:")
+Text(12,4,"1:  VF,  VI,  T")
+Text(19,4,"2:  VF,  VI,  A")
+Text(26,4,"3:  VF,  A,  T")
+Text(33,4,"4:  VI,  A,  T")
+Text(40,4,"5:  D,  VF,  VI")
+Text(12,50,"6:  D,  VI,  T")
+Text(19,50,"7:  D,  VF,  T")
+Text(26,50,"8:  A,  T , D")
+Text(33,50,"9:  VI,  A,  D")
+Text(40,50,"0:  VF,  A,  D")
+Text(57,24,"QUIT   TO   EXIT")
+
+Lbl W
+getKey->K
+While K=0
+	getKey->K
+End
+If K=22
+Goto Z
+If K=92
+Goto A
+If K=93
+Goto B
+If K=94
+Goto C
+If K=82
+Goto D
+If K=83
+Goto E
+If K=84
+Goto F
+If K=72
+Goto G
+If K=73
+Goto H
+If K=74
+Goto I
+If K=102
+Then
+	Goto J
+	Else
+	Goto W
+End
+Stop
+
+Lbl A
+ClrHome
+Disp "FINAL VELOCITY ="
+Input F
+Disp "INITIAL VELOCITY"
+Input I
+Disp "TIME ="
+Input T
+ClrDraw
+(F-I)/T->A
+(.5(I+F))T->D
+Text(10,0,"ACCELERATION =")
+Text(20,0,A)
+Text(34,0,"DISTANCE =")
+Text(44,0,D)
+Goto S
+
+Lbl B
+ClrDraw
+ClrHome
+Disp "FINAL VELOCITY ="
+Input F
+Disp "INITIAL VELOCITY"
+Input I
+Disp "ACCELERATION ="
+Input A
+(F-I)/A->T
+(F^^2-I^^2)/(2(A))->D
+Text(10,0,"TIME =")
+Text(20,0,T)
+Text(34,0,"DISTANCE =")
+Text(44,0,D)
+Goto S
+
+Lbl C
+ClrHome
+ClrDraw
+Disp "FINAL VELOCITY ="
+Input F
+Disp "ACCELERATION ="
+Input A
+Disp "TIME ="
+Input T
+(F*T-.5(A*T*T))->D
+F-A*T->I
+Text(10,0,"DISTANCE =")
+Text(20,0,D)
+Text(34,0,"INITIAL VELOCITY =")
+Text(44,0,I)
+Goto S
+
+Lbl D
+ClrHome
+ClrDraw
+Disp "ACCELERATION ="
+Input A
+Disp "INITIAL VELOCITY"
+Input I
+Disp "TIME ="
+Input T
+I+A*T->F
+I*T+(.5(A*T^^2))->D
+Text(10,0,"FINAL VELOCITY="
+Text(20,0,F)
+Text(34,0,"DISTANCE=")
+Text(44,0,D)
+Goto S
+
+Lbl E
+ClrHome
+ClrDraw
+Disp "DISTANCE ="
+Input D
+Disp "FINAL VELOCITY ="
+Input F
+Disp "INITIAL VELOCITY"
+Input I
+(F*F-I*I)/(2(D))->A
+D/(.5(F+I))->T
+Text(10,0,"ACCELERATION =")
+Text(20,0,A)
+Text(34,0,"TIME =")
+Text(44,0,T)
+Goto S
+
+Lbl F
+ClrHome
+ClrDraw
+Disp "DISTANCE ="
+Input D
+Disp "INITIAL VELOCITY"
+Input I
+Disp "TIME ="
+Input T
+(D-(.5(T*I)))/(.5(T))->F
+(F-I)/T->A
+Text(10,0,"ACCELERATION =")
+Text(20,0,A)
+Text(34,0,"FINAL VELOCITY =")
+Text(44,0,F)
+Goto S
+
+Lbl G
+ClrHome
+ClrDraw
+Disp "DISTANCE ="
+Input D
+Disp "FINAL VELOCITY ="
+Input F
+Disp "TIME ="
+Input T
+((F*T)-D)/(.5(T*T))->A
+F-(A*T)->I
+Text(10,0,"ACCELERATION =")
+Text(20,0,A)
+Text(34,0,"INITIAL VELOCITY =")
+Text(44,0,I)
+Goto S
+
+Lbl H
+ClrHome
+ClrDraw
+Disp "ACCELERATION ="
+Input A
+Disp "TIME ="
+Input T
+Disp "DISTANCE ="
+Input D
+(D-(.5(A*T*T)))/T->I
+I+(A*T)->F
+Text(10,0,"INITIAL VELOCITY =")
+Text(20,0,I)
+Text(34,0,"FINAL VELOCITY =")
+Text(44,0,F)
+Goto S
+
+Lbl I
+ClrHome
+ClrDraw
+Disp "INITIAL VELOCITY"
+Input I
+Disp "ACCELERATION ="
+Input A
+Disp "DISTANCE ="
+Input D
+((I*I)+(2(A*D)))->Q
+sqrt(Q)->F
+F*~1->R
+(F-I)/A->T
+(R-I)/A->U
+Text(0,0,"FINAL VELOCITY =")
+Text(7,0,F)
+Text(16,0,"TIME =")
+Text(23,0,T)
+Text(32,0,"FINAL VELOCITY =")
+Text(39,0,R)
+Text(48,0,"TIME =")
+Text(55,0,U)
+Goto S
+
+Lbl J
+ClrHome
+ClrDraw
+Disp "FINAL VELOCITY ="
+Input F
+Disp "ACCELERATION ="
+Input A
+Disp "DISTANCE ="
+Input D
+F*F-(2(A*D))->Q
+sqrt(Q)->I
+I*~1->R
+(F-I)/A->T
+(F-R)/A->U
+Text(0,0,"INITIAL VELOCITY =")
+Text(7,0,I)
+Text(16,0,"TIME=")
+Text(23,0,T)
+Text(32,0,"INITIAL VELOCITY =")
+Text(39,0,R)
+Text(48,0,"TIME =")
+Text(55,0,U)
+
+Goto S
+Lbl Z
+ClrHome
+ClrDraw
+Stop
